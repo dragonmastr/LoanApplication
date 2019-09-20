@@ -1,4 +1,4 @@
-package com.virtualpairprogrammers;
+package com.hardik;
 
 import java.math.BigDecimal;
 
@@ -32,7 +32,7 @@ public class LoanApplication
 
 	public BigDecimal getInterestRate() {
 		RestTemplate restTemplate = new RestTemplate();
-		return restTemplate.getForObject("http://loans.virtualpairprogrammers.com/getInterestRate", BigDecimal.class);
+		return restTemplate.getForObject("http://loans.icici.com/getInterestRate", BigDecimal.class);
 	}
 
 

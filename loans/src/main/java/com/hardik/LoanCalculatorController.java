@@ -1,4 +1,4 @@
-package com.virtualpairprogrammers;
+package com.hardik;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,12 +38,12 @@ public class LoanCalculatorController {
 	{
 		data.save(loan);
 
-		URI location = restTemplate.postForLocation("http://loans.virtualpairprogrammers.com/loanApplication", loan); //this line sends the loan for approval request, which could take up to 24 hours
+		URI location = restTemplate.postForLocation("http://loans.icici.com/loanApplication", loan); //this line sends the loan for approval request, which could take up to 24 hours
 		
-		BigDecimal applicableRate = loan.getInterestRate().divide(new BigDecimal("100"));
+		BigDecimal applicableRate = loan.getInterestRate().divide(new BigDecimal(""+100)).multiply(new BigDecimal("" +loan.getTermInMonths()/12));
 		applicableRate = applicableRate.add(new BigDecimal("1"));
 		
-		BigDecimal totalRepayable = new BigDecimal(loan.getPrincipal() * Double.parseDouble(applicableRate.toString()) * loan.getTermInMonths() / 12);
+		BigDecimal totalRepayable = new BigDecimal(loan.getPrincipal() * Double.parseDouble(applicableRate.toString()));
 		BigDecimal repayment = totalRepayable.divide(new BigDecimal("" + loan.getTermInMonths()),RoundingMode.UP);
 		loan.setRepayment(repayment);
 		

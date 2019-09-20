@@ -1,4 +1,4 @@
-package com.virtualpairprogrammers;
+package com.hardik;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
